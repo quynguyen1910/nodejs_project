@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const routerClient = require("./client/index.router");
+const routerAdmin = require("./admin/index.router");
 
-router.get("/", (req, res) => {
-  res.send("structure project success");
-});
+routerClient(router);
+routerAdmin(router);
 
 module.exports = router;
