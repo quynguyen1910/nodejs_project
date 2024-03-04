@@ -1,0 +1,20 @@
+<%
+const classMap = {
+  'success': 'alert-success',
+  'error': 'alert-danger',
+  'warning': 'alert-warning',
+  'default': 'alert-primary'
+};
+%>
+<% if ((Object.keys(messageAlert)).length > 0) { %>
+    <% for( key in messageAlert ) { %>
+      <% for( let message of messageAlert[key] ) { %>
+        <div alert-flash="<%= key %>" class="alert <%= classMap[key] || classMap['default'] %> ct-alert active" role="alert">
+          <%= message %>
+          <button class="ct-alert-button"><img src="../shared/icons/close.svg" alt=""></button>
+        </div>
+      <% } %>
+    <% } %>
+    <script src="../shared/js/showAlertFlash.js"></script>
+  <% } %>
+

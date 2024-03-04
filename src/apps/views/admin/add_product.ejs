@@ -1,0 +1,114 @@
+<%- include('./layouts/head',{pageTitle: pageTitle,}) %>
+<%- include('./layouts/header',{messageAlert}) %>
+<%- include('./layouts/sidebar') %>
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+		<div class="row">
+			<ol class="breadcrumb">
+                <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                <li><a href="">Quản lý sản phẩm</a></li>
+				<li class="active">Thêm sản phẩm</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Thêm sản phẩm</h1>
+			</div>
+        </div><!--/.row-->
+        <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form action="/admin/products/createPost" method="post" enctype="multipart/form-data" > 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tên sản phẩm</label>
+                                    <input name="name" class="form-control" placeholder="">
+                                </div>
+                                                                
+                                <div class="form-group">
+                                    <label>Giá sản phẩm</label>
+                                    <input type="number" min="0"  name="price" class="form-control">
+                                    <!-- type="number" min="0" -->
+                                </div>
+                                <div class="form-group">
+                                    <label>Bảo hành</label>
+                                    <input value="100000"  name="warranty" type="text" class="form-control">
+                                </div>    
+                                <div class="form-group">
+                                    <label>Phụ kiện</label>
+                                    <input value="100000"  name="accessories" type="text" class="form-control">
+                                </div>                  
+                                <div class="form-group">
+                                    <label>Khuyến mãi</label>
+                                    <input value="100000"  name="promotion" type="text" class="form-control">
+                                </div>  
+                                <div class="form-group">
+                                    <label>Tình trạng</label>
+                                    <input value="100000"  name="status" type="text" class="form-control">
+                                </div>  
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Ảnh sản phẩm</label>
+                                    <input name="thumbnail" type="file" accept="image/*">
+                                    <br>
+                                    <div class="ct-preview-image">
+                                        <img id="preview-image" src="img/preview-phone.png" alt="preview-phone">
+                                        <button><img src="../shared/icons/close.svg" alt="close icon"></button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Danh mục</label>
+                                    <div  class="ct-select">
+                                        <select name="cat_id">
+                                          <option value="disabled" disabled selected>--lựa chọn danh mục</option>
+                                        <% for( let category of categories ) { %>
+                                        <option selected value="<%= category._id %>"><%= category.title %></option>
+                                        <% } %>
+                                        </select>
+                                        <span class="ct-select-arrow"></span>
+                                      </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Trạng thái</label>
+                                    <div  class="ct-select">
+                                        <select name="is_stock">
+                                        <option value="true" selected>Còn Hàng</option>
+                                        <option value="false">Hết Hàng</option>
+                                        </select>
+                                        <span class="ct-select-arrow"></span>
+                                      </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Sản phẩm nổi bật</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="featured" type="checkbox" value='true'>Nổi bật
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                        <label>Mô tả sản phẩm</label>
+                                        <textarea name="description" class="form-control" rows="3">value="100000"</textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Thêm mới</button>
+                                    <button type="reset" class="btn btn-default">Làm mới</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- /.col-->
+            </div><!-- /.row -->
+
+            <!-- ----------alert flash-------------- -->
+            <%- include('../shared/components/alertFlash',{messageAlert}) %>
+
+	</div>	<!--/.main-->	
+    <script type="module" src="js/ct-scripts/script_add_products.js"></script>
+    <%- include('./layouts/footer') %>
+
