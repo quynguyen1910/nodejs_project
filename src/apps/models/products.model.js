@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const { Schema } = mongoose;
 const productSchema = new Schema(
   {
@@ -50,6 +51,15 @@ const productSchema = new Schema(
     slug: {
       type: String,
       required: true,
+      // default:null
+    },
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
+    deleteAt: {
+      type: Date,
+      default: null,
     },
   },
   {

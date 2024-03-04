@@ -1,0 +1,42 @@
+<div class="ct-form-wrapp"> 
+    <div class="ct-form-title" style="margin-bottom: 10px;">
+      <span >Bộ lọc và tìm kiếm:  </span><strong><%= `${paginationData.itemsAll} sản phẩm` %></strong>
+    </div>
+    <form form-params="filter" action="" class="ct-form-group">
+
+
+    <div style="max-width: 300px;" class="ct-select" >
+      <select name="is_stock">
+        <option value="disabled" disabled selected>--Trạng thái--</option>
+        <% for( let status of Object.values(filterFormData.status) ) { %>
+          <option value="<%= status.is_stock %>" <%= status.active === 'true' ? 'selected' : '' %>><%= status.title %></option>
+        <% } %>           
+      </select>
+      <span class="ct-select-arrow"></span>
+    </div>
+    <div style="max-width: 300px;" class="ct-select" >
+      <select name="cat_id">
+        <option value="disabled" disabled selected>--danh mục sản phẩm--</option>
+        <option value="all">Tất cả</option>
+        <% for( let category of categories ) { %>
+          <option value="<%= category._id %>"
+            <%= find.cat_id == category._id ? 'selected' : '' %>
+            ><%= category.title %></option>
+        <% } %>
+      </select>
+      <span class="ct-select-arrow"></span>
+    </div>
+    
+    <input type="text" name="keyword" class="ct-form-input" value="" placeholder="Tìm kiếm sản phẩm...">
+
+    <button class="ct-form-button" type="submit">
+      <img src="../shared/icons/filter.svg" alt="icon" >
+    </button>
+    <% if (Object.entries(filterFormData.find).length > 0) { %>
+      <button class="ct-form-button ct-form-button-del" >
+        <img src="../shared/icons/delete.svg" alt="icon" >
+      </button>
+    <% } %>
+
+  </form>
+  </div>

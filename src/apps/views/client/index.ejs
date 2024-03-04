@@ -1,0 +1,56 @@
+<!-- head -->
+<%- include('./layouts/head',{pageTitle}) %>
+<!-- header -->
+<%- include('./layouts/header',{categories}) %>
+<!--	Slider	-->
+<%- include('./layouts/slider') %>
+
+     
+                
+                <!--	Feature Product	-->
+                <div class="products">
+                    <h3>Sản phẩm nổi bật</h3>
+                    <div class="product-list card-deck">
+                        <% for( let product of productsFeatured ) { %>
+                        
+                            <div class="product-item card text-center">
+                                <a href="/product/<%= product._id %>"><img src="../uploads/images/products/<%= product.thumbnail %>"></a>
+                                <h4><a href="/product/<%= product._id %>"><%= product.name %></a></h4>
+                                <p>Giá Bán: <span><%= product.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}).replace("₫", "VNĐ"); %></span></p>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                <!--	End Feature Product	-->
+                
+                
+                <!--	Latest Product	-->
+                <div class="products">
+                    <h3>Sản phẩm mới</h3>
+                    <div class="product-list card-deck">
+                        
+                        <% for( let product of productsLatest ) { %>
+                        
+                            <div class="product-item card text-center">
+                                <a href="/product/<%= product._id %>"><img src="../uploads/images/products/<%= product.thumbnail %>"></a>
+                                <h4><a href="/product/<%= product._id %>"><%= product.name %></a></h4>
+                                <p>Giá Bán: <span><%= product.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}).replace("₫", "VNĐ"); %></span></p>
+                            </div>
+                        <% } %>
+
+                    </div>
+
+                </div>
+                <!--	End Latest Product	-->
+               
+
+<!-- sidebar        -->
+<%- include('./layouts/sidebar') %>
+<!-- footer-top -->
+<%- include('./layouts/footer-top') %>
+<!-- footer-bottom -->
+<%- include('./layouts/footer-bottom') %>
+<%- include('../shared/components/alertFlash',{messageAlert}) %>
+
+
+

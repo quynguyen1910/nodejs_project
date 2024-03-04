@@ -1,0 +1,20 @@
+<div class="ct-form-wrapp">
+    <div class="ct-form-title" style="margin-bottom: 10px;">
+        <span>Chỉnh sửa sản phẩm:</span>
+      </div>
+      <form method="post" action="/admin/products/change-statusMulti?_method=PATCH" class="ct-form-group">
+          <div style="max-width: 300px;" class="ct-select">
+            <select name="type_edit">
+              <option value="disabled" disabled selected>--Lựa chọn sửa đổi--</option>
+              <option value="true">Còn hàng</option>
+              <option value="false">Hết hàng</option>
+              <option class="text-danger" value="deleted">Xóa sản phẩm</option>
+            </select>
+            <span class="ct-select-arrow"></span>
+          </div>
+          <input class="ct-form-input" style="display: none;" type="text" name="prd_ids" id="">
+          <button class="ct-form-button" change-status-multi type="submit">
+            <img src="../shared/icons/edit.svg" alt="">
+          </button>
+        </form>
+</div>

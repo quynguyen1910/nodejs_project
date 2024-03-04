@@ -1,5 +1,5 @@
-<%- include('./layouts/head',{title:'Vietpro Mobile Shop - Administrator'}) %>
-<%- include('./layouts/header') %>
+<%- include('./layouts/head',{pageTitle: pageTitle,}) %>
+<%- include('./layouts/header',{messageAlert}) %>
 <%- include('./layouts/sidebar') %>
 <%- include('./layouts/breadcrumb') %>
 <!-- ------------------main-------------- -->
@@ -9,21 +9,34 @@
         </div>
       </div>
       <!--/.row-->
-      <div id="toolbar" class="btn-group">
-        <a href="product-add.html" class="btn btn-success">
-          <i class="glyphicon glyphicon-plus"></i> Thêm sản phẩm
-        </a>
-      </div>
+
+
+
       <div class="row">
         <div class="col-lg-12">
           <div class="panel panel-default">
             <div class="panel-body">
+
+
+    <div id="toolbar" class="btn-group">
+      <a href="/admin/products/create" class="btn btn-success">
+          <i class="glyphicon glyphicon-plus"></i> Thêm sản phẩm
+      </a>
+    </div>
+
+    <%- include('../shared/components/filterForm',{find,filterFormData,categories}) %> 
+  <!-- -------------------change-status-multi------------- -->
+ <%- include('../shared/components/changeStatusMulti') %>
+
+  <!-- -------------------change-status-multi------------- -->
               <table data-toolbar="#toolbar" data-toggle="table">
                 <thead>
                   <tr>
-                    <th data-field="id" data-sortable="true">ID</th>
+                    <th>
+                      <input type="checkbox" data-toggle="change-status" name="check-all" id="">
+                    </th>
                     <th data-field="name" data-sortable="true">Tên sản phẩm</th>
-                    <th data-field="price" data-sortable="true">Giá</th>
+                    <th data-field="price" data-sortable="true">Giá (VNĐ)</th>
                     <th>Ảnh sản phẩm</th>
                     <th>Trạng thái</th>
                     <th>Danh mục</th>
@@ -31,60 +44,43 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td style="">1</td>
-                    <td style="">Sản phẩm số 1</td>
-                    <td style="">18.500.000 vnd</td>
-                    <td style="text-align: center">
-                      <img width="130" height="180" src="img/download.jpeg" />
-                    </td>
-                    <td><span class="label label-success">Còn hàng</span></td>
-                    <td>Danh mục số 1</td>
-                    <td class="form-group">
-                      <a href="product-edit.html" class="btn btn-primary"
-                        ><i class="glyphicon glyphicon-pencil"></i
-                      ></a>
-                      <a href="product-edit.html" class="btn btn-danger"
-                        ><i class="glyphicon glyphicon-remove"></i
-                      ></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="">1</td>
-                    <td style="">Sản phẩm số 2</td>
-                    <td style="">18.500.000 vnd</td>
-                    <td style="text-align: center">
-                      <img width="130" height="180" src="img/download.jpeg" />
-                    </td>
-                    <td><span class="label label-danger">Hết hàng</span></td>
-                    <td>Danh mục số 1</td>
-                    <td class="form-group">
-                      <a href="product-edit.html" class="btn btn-primary"
-                        ><i class="glyphicon glyphicon-pencil"></i
-                      ></a>
-                      <a href="product-edit.html" class="btn btn-danger"
-                        ><i class="glyphicon glyphicon-remove"></i
-                      ></a>
-                    </td>
-                  </tr>
+   
+                  <% for( let product of products ) { %>
+                    <tr>
+                      <td >
+                        <input type="checkbox" data-prd_id="<%= product._id %>" data-toggle="change-status" name="check-item" id="">
+                      </td>
+                      <td ><%= product.name %></td>
+                      
+                      <td ><%= product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }).replace('₫', ''); %></td>
+                      <td style="text-align: center">
+                        <img width="130" height="180" src="<%= `../uploads/images/products/${product.thumbnail}` %>" alt="<%= product.slug %>" />
+                      </td>
+                      <% if (product.is_stock) { %>
+                        <td><span role="button" data-is_stock="<%= product.is_stock %>" data-prd_id="<%= product._id %>" class="label label-success">
+                          Còn hàng</span></td>
+                        
+                      <% } else {%>
+                        <td><span role="button" data-is_stock="<%= product.is_stock %>" data-prd_id="<%= product._id %>" class="label label-danger">
+                          Hết hàng</span></td>
+                      <%} %>
+                      <td><%= product.cat_id.title%></td>
+                      <td class="form-group">
+                        <a href="/admin/products/edit-product/<%= product._id %>" class="btn btn-primary"
+                          ><i class="glyphicon glyphicon-pencil"></i
+                        ></a>
+                        <a data-prd_id="<%= product._id %>" button-delete href="javascript:;" class="btn btn-danger"
+                          ><i class="glyphicon glyphicon-remove"></i
+                        ></a>
+                      </td>
+                    </tr>
+                  <% } %>
                 </tbody>
               </table>
             </div>
-            <div class="panel-footer">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#">&laquo;</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">&raquo;</a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+            <!-- -----------pagination------------------ -->
+          <%- include('../shared/components/pagination.ejs',{paginationData}) %>
+            <!-- -----------End pagination------------------ -->
           </div>
         </div>
       </div>
@@ -92,9 +88,35 @@
     </div>
     <!--/.main-->
 
+<!-- Modal -->
+<div class="modal fade" id="ct-deletePermanetyleModal" tabindex="-1" role="dialog" aria-labelledby="ct-deletePermanetyleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ct-deletePermanetyleModalLabel">XÓA SẢN PHẨM</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-danger">
+        BẠN CÓ MUỐN XÓA SẢN PHẨM NÀY!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">KHÔNG</button>
+        <button type="button" class="btn btn-danger" id="button-delete">ĐỒNG Ý</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../shared/components/alertFlash',{messageAlert}) %>
+
+
+    <!-- end-Modal -->
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-table.js"></script>
+    <script type="module" src="js/ct-scripts/script_products.js"></script>
 <!-- -----------------End-main-------------- -->
 
 <%- include('./layouts/footer') %>
