@@ -1,4 +1,4 @@
-var slug = require('slug')
+
 // -----model-------
 const productModel = require("../../models/products.model");
 const categoryModel = require("../../models/category.model");
@@ -6,6 +6,7 @@ const categoryModel = require("../../models/category.model");
 const paginationHelper = require("../../../common/helper/pagination.helper");
 const formFilterHelper = require("../../../common/helper/formFilter.helper");
 
+const slug = require('slug')
 // ----controllers---------
 const index = async (req, res) => {
   const messageAlert = req.flash();
@@ -107,6 +108,7 @@ const create = async (req, res) => {
   });
 };
 const createPost = async (req, res) => {
+  const createSlug = slug(req.body.name)
   const newProductData = {
     cat_id: req.body.cat_id,
     thumbnail: req?.file?.filename || "preview-phone.png",
@@ -119,7 +121,7 @@ const createPost = async (req, res) => {
     accessories: req.body.accessories,
     is_stock: req.body.is_stock == "true",
     name: req.body.name,
-    slug: slug(req.body.name),
+    slug: createSlug,
   };
 
   const newProduct = new productModel(newProductData);
@@ -143,6 +145,7 @@ const edit = async (req, res) => {
 
 const editPost = async (req, res) => {
   const { prd_id } = req.params;
+  const createSlug = slug(req.body.name)
   const productUpdateData = {
     cat_id: req.body.cat_id,
     description: req.body.description,
@@ -154,7 +157,7 @@ const editPost = async (req, res) => {
     accessories: req.body.accessories,
     is_stock: req.body.is_stock == "true",
     name: req.body.name,
-    slug: slug(req.body.name),
+    slug: createSlug,
   };
 
   if (req.file?.filename) {
