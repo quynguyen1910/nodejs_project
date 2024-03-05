@@ -30,5 +30,4 @@ function start() {
   //------------delete item---------
   const nodesButtonDel = document.querySelectorAll("[button-delete]");
   deleteItem(nodesButtonDel);
-
 }
