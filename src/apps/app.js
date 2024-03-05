@@ -18,11 +18,17 @@ database.connect();
 // -----------template engine EJS---------------
 
 app.set("views", `${__dirname}/views`);
-app.set("view engine", "EJS");
+app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser("keyboard cat"));
-app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
+  }));
+  
 app.use(flash());
 
 app.use(methodOverride("_method"));
