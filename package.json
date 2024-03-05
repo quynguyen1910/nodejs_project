@@ -4,7 +4,7 @@
   "description": "my project for cv",
   "main": "index.js",
   "engines": {
-    "node": "20.x"
+    "node": "18.x"
   },
   "scripts": {
     "start": "nodemon ./src/bin/www.js",
