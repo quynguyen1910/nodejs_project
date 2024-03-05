@@ -1,21 +1,21 @@
 const express = require("express");
 const router = express.Router();
 // ----------import admin-----------------------
-const prodAdmin_Ctrl = require("../apps/controllers/admin/products.controller");
+const prodAdmin_Ctrl = require(`${__dirname}/../apps/controllers/admin/products.controller`);
 
 // -----middleware-------
-const createPostValidateMw = require("../apps/middleware/createPost.mw");
+const createPostValidateMw = require(`${__dirname}/../apps/middleware/createPost.mw`);
 // -----end-middleware-------
 
 const multer = require("multer");
-const multerHelper = require("../common/helper/multer.helper");
+const multerHelper = require(`${__dirname}/../common/helper/multer.helper`);
 const upload = multer({
   storage: multerHelper.storage,
   fileFilter: multerHelper.fileFilter,
 }).single("thumbnail");
 // ---------- END import admin-----------------------
 // ---------- import client-----------------------
-const prodClient_Ctrl = require('../apps/controllers/client/products.controller')
+const prodClient_Ctrl = require(`${__dirname}/../apps/controllers/client/products.controller`)
 // ---------- END import client-----------------------
 // --------------------------admin------------------------------------
 // index
