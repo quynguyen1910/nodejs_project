@@ -4,6 +4,7 @@ import checkAllItems from "../../../shared/js/checkAllItems.js";
 import selectBoxCustom from "../../../shared/js/selectBoxCustom.js";
 import changeStatusMulti from "../../../shared/js/changeStatusMulti.js";
 import deleteItem from "../../../shared/js/deleteItem.js";
+import pagination from "../../../shared/js/pagination.js";
 
 
 document.addEventListener("DOMContentLoaded", start);
@@ -30,4 +31,6 @@ function start() {
   //------------delete item---------
   const nodesButtonDel = document.querySelectorAll("[button-delete]");
   deleteItem(nodesButtonDel);
+  //-------pagination---------
+  pagination()
 }

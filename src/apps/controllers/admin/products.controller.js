@@ -1,13 +1,9 @@
-const multer = require("multer"); //để upload ảnh
-const slug = require("slug");
 // -----model-------
 const productModel = require("../../models/products.model");
 const categoryModel = require("../../models/category.model");
-const commentModel = require("../../models/comment.model");
 // -----helper-------
 const paginationHelper = require("../../../common/helper/pagination.helper");
 const formFilterHelper = require("../../../common/helper/formFilter.helper");
-const { default: mongoose } = require("mongoose");
 
 // ----controllers---------
 const index = async (req, res) => {
@@ -99,8 +95,6 @@ const deleted = async (req, res) => {
   req.flash("success", "XÓA SẢN PHẨM THÀNH CÔNG!");
 
   res.redirect("back");
-
- 
 };
 const create = async (req, res) => {
   const messageAlert = req.flash();
@@ -124,7 +118,7 @@ const createPost = async (req, res) => {
     accessories: req.body.accessories,
     is_stock: req.body.is_stock == "true",
     name: req.body.name,
-    slug: slug(req.body.name),
+    // slug: slug(req.body.name),
   };
 
   const newProduct = new productModel(newProductData);
@@ -137,7 +131,6 @@ const createPost = async (req, res) => {
 const edit = async (req, res) => {
   const messageAlert = req.flash();
   const product = await productModel.findOne({ _id: req.params.prd_id });
-
   const categories = await categoryModel.find({});
   res.render("./admin/edit_product", {
     pageTitle: "create product",
@@ -160,7 +153,7 @@ const editPost = async (req, res) => {
     accessories: req.body.accessories,
     is_stock: req.body.is_stock == "true",
     name: req.body.name,
-    slug: slug(req.body.name),
+    // slug: slug(req.body.name),
   };
 
   if (req.file?.filename) {

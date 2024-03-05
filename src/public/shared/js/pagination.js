@@ -17,5 +17,5 @@ const pagination = () => {
     });
   }
 };
-pagination();
-// export default pagination;
+// pagination();
+export default pagination;
