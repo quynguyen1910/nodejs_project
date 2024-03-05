@@ -1,3 +1,4 @@
+var slug = require('slug')
 // -----model-------
 const productModel = require("../../models/products.model");
 const categoryModel = require("../../models/category.model");
@@ -118,7 +119,7 @@ const createPost = async (req, res) => {
     accessories: req.body.accessories,
     is_stock: req.body.is_stock == "true",
     name: req.body.name,
-    // slug: slug(req.body.name),
+    slug: slug(req.body.name),
   };
 
   const newProduct = new productModel(newProductData);
@@ -153,7 +154,7 @@ const editPost = async (req, res) => {
     accessories: req.body.accessories,
     is_stock: req.body.is_stock == "true",
     name: req.body.name,
-    // slug: slug(req.body.name),
+    slug: slug(req.body.name),
   };
 
   if (req.file?.filename) {
