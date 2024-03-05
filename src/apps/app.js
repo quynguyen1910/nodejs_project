@@ -20,15 +20,6 @@ database.connect();
 app.set("views", config.get("apps.VIEWS_FOLDER"));
 app.set("view engine", config.get("apps.NAME_ENGINE"));
 
-//------------session------------------------
-// app.set('trust proxy', 1) // trust first proxy
-// app.use(session({
-//   secret: 'keyboard cat',
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: { secure: false }
-// }))
-// app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser("keyboard cat"));
 app.use(session({ cookie: { maxAge: 60000 } }));

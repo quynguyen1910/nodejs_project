@@ -5,5 +5,5 @@ const app = require(config.get("apps.URL_APPS"));
 const port = process.env.PORT;
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${process.env.PORT}`);
+  console.log(`App listening on port ${port}`);
 });
